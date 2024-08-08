@@ -11,7 +11,10 @@
     "test": "jest",
     "sync-api": "node ./scripts/syncApi.js",
     "postinstall": "patch-package",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "ts:check": "tsc -p . --noEmit",
+    "prettier:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
+    "prettier:write": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,scss,md}\""
   },
   "dependencies": {
     "@config-plugins/react-native-dynamic-app-icon": "^8.0.0",
