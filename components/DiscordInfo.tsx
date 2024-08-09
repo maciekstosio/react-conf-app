@@ -1,14 +1,14 @@
-import { Button } from "./Button";
-import { InfoSection } from "./InfoSection";
-import { ThemedText } from "./Themed";
-import * as Linking from "expo-linking";
+import { Button } from './Button'
+import { InfoSection } from './InfoSection'
+import { ThemedText } from './Themed'
+import * as Linking from 'expo-linking'
 
-import { theme } from "@/theme";
+import { theme } from '@/theme'
 
 export function DiscordInfo() {
   const handlePress = () => {
-    Linking.openURL("https://discord.gg/reactconf");
-  };
+    Linking.openURL('https://discord.gg/reactconf')
+  }
 
   return (
     <InfoSection title="Discord Server">
@@ -18,5 +18,5 @@ export function DiscordInfo() {
       </ThemedText>
       <Button onPress={handlePress} title="Join us on Discord" />
     </InfoSection>
-  );
+  )
 }

@@ -1,7 +1,7 @@
-import { useScrollToTop } from "@react-navigation/native";
-import { useFocusEffect } from "expo-router";
-import React, { useState } from "react";
-import { ActivityIndicator, StyleSheet, View, ViewToken } from "react-native";
+import { useScrollToTop } from '@react-navigation/native'
+import { useFocusEffect } from 'expo-router'
+import React, { useState } from 'react'
+import { ActivityIndicator, StyleSheet, View, ViewToken } from 'react-native'
 import Animated, {
   useAnimatedRef,
   useSharedValue,
@@ -10,102 +10,100 @@ import Animated, {
   SharedValue,
   Extrapolation,
   interpolate,
-} from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+} from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 
-import { ActivityCard } from "@/components/ActivityCard";
-import { NotFound } from "@/components/NotFound";
-import { ReactConfHeader } from "@/components/ReactConfHeader";
-import { TalkCard } from "@/components/TalkCard";
-import { ThemedText, ThemedView, useThemeColor } from "@/components/Themed";
-import { TimeZoneSwitch } from "@/components/TimeZoneSwitch";
-import { COLLAPSED_HEADER, EXPANDED_HEADER, ROW_HEIGHT } from "@/consts";
-import { useReactConfStore } from "@/store/reactConfStore";
-import { theme } from "@/theme";
-import { Session } from "@/types";
+import { ActivityCard } from '@/components/ActivityCard'
+import { NotFound } from '@/components/NotFound'
+import { ReactConfHeader } from '@/components/ReactConfHeader'
+import { TalkCard } from '@/components/TalkCard'
+import { ThemedText, ThemedView, useThemeColor } from '@/components/Themed'
+import { TimeZoneSwitch } from '@/components/TimeZoneSwitch'
+import { COLLAPSED_HEADER, EXPANDED_HEADER, ROW_HEIGHT } from '@/consts'
+import { useReactConfStore } from '@/store/reactConfStore'
+import { theme } from '@/theme'
+import { Session } from '@/types'
 
 type SessionItem =
   | {
-      type: "session";
-      day: number;
-      item: Session;
+      type: 'session'
+      day: number
+      item: Session
     }
   | {
-      type: "section-header";
-      day: number;
-    };
+      type: 'section-header'
+      day: number
+    }
 
-const AnimatedFlatList = Animated.createAnimatedComponent(
-  FlatList<SessionItem>,
-);
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList<SessionItem>)
 
 export default function Schedule() {
-  const insets = useSafeAreaInsets();
-  const scrollRef = useAnimatedRef<FlatList>();
-  useScrollToTop(scrollRef as any);
-  const [shouldShowDayOneHeader, setShouldShowDayOneHeader] = useState(true);
+  const insets = useSafeAreaInsets()
+  const scrollRef = useAnimatedRef<FlatList>()
+  useScrollToTop(scrollRef as any)
+  const [shouldShowDayOneHeader, setShouldShowDayOneHeader] = useState(true)
 
-  const scrollOffset = useSharedValue(0);
+  const scrollOffset = useSharedValue(0)
   const scrollHandler = useAnimatedScrollHandler((event) => {
-    scrollOffset.value = event.contentOffset.y;
-  });
+    scrollOffset.value = event.contentOffset.y
+  })
 
   const paddingTopStyle = useAnimatedStyle(() => ({
     paddingTop: interpolate(
       scrollOffset.value,
       [COLLAPSED_HEADER, EXPANDED_HEADER],
       [0, ROW_HEIGHT],
-      Extrapolation.CLAMP,
+      Extrapolation.CLAMP
     ),
-  }));
+  }))
 
   const sectionListBackgroundColor = useThemeColor({
     light: theme.colorWhite,
     dark: theme.colorDarkestBlue,
-  });
+  })
 
   useFocusEffect(() => {
-    refreshSchedule({ ttlMs: 60_000 });
-  });
+    refreshSchedule({ ttlMs: 60_000 })
+  })
 
-  const { dayOne, dayTwo } = useReactConfStore((state) => state.schedule);
-  const refreshSchedule = useReactConfStore((state) => state.refreshData);
-  const isRefreshing = useReactConfStore((state) => !!state.isRefreshing);
-  const shouldUseLocalTz = useReactConfStore((state) => state.shouldUseLocalTz);
+  const { dayOne, dayTwo } = useReactConfStore((state) => state.schedule)
+  const refreshSchedule = useReactConfStore((state) => state.refreshData)
+  const isRefreshing = useReactConfStore((state) => !!state.isRefreshing)
+  const shouldUseLocalTz = useReactConfStore((state) => state.shouldUseLocalTz)
 
   const scrollToSection = ({ isDayOne }: { isDayOne: boolean }) => {
     scrollRef.current?.scrollToIndex({
       index: isDayOne ? 0 : dayOne.length,
       animated: true,
-    });
-  };
+    })
+  }
 
   const onViewableItemsChanged = (items: {
-    viewableItems: ViewToken<SessionItem>[];
-    changed: ViewToken<SessionItem>[];
+    viewableItems: ViewToken<SessionItem>[]
+    changed: ViewToken<SessionItem>[]
   }) => {
-    const topVisibleIndex = items.viewableItems?.[0]?.index || 0;
-    const isDayOneThreshold = topVisibleIndex <= dayOne.length;
-    const isDayTwoThreshold = topVisibleIndex >= dayOne.length;
+    const topVisibleIndex = items.viewableItems?.[0]?.index || 0
+    const isDayOneThreshold = topVisibleIndex <= dayOne.length
+    const isDayTwoThreshold = topVisibleIndex >= dayOne.length
 
     if (!shouldShowDayOneHeader && isDayOneThreshold) {
-      setShouldShowDayOneHeader(true);
+      setShouldShowDayOneHeader(true)
     }
 
     if (shouldShowDayOneHeader && isDayTwoThreshold) {
-      setShouldShowDayOneHeader(false);
+      setShouldShowDayOneHeader(false)
     }
-  };
+  }
 
   const data = [
-    ...dayOne.map((item) => ({ type: "session", day: 1, item })),
-    { type: "section-header", day: 2 },
-    ...dayTwo.map((item) => ({ type: "session", day: 2, item })),
-  ] as SessionItem[];
+    ...dayOne.map((item) => ({ type: 'session', day: 1, item })),
+    { type: 'section-header', day: 2 },
+    ...dayTwo.map((item) => ({ type: 'session', day: 2, item })),
+  ] as SessionItem[]
 
   if (!dayOne.length || !dayTwo.length) {
-    return <NotFound message="Schedule unavailable" />;
+    return <NotFound message="Schedule unavailable" />
   }
 
   return (
@@ -142,22 +140,22 @@ export default function Schedule() {
               >
                 <SectionListButton
                   title="Day 1"
-                  subtitle={!shouldUseLocalTz ? "(May 15)" : null}
+                  subtitle={!shouldUseLocalTz ? '(May 15)' : null}
                   isBold={shouldShowDayOneHeader}
                   onPress={() => scrollToSection({ isDayOne: true })}
                 />
                 <SectionListButton
                   title="Day 2"
-                  subtitle={!shouldUseLocalTz ? "(May 16)" : null}
+                  subtitle={!shouldUseLocalTz ? '(May 16)' : null}
                   isBold={!shouldShowDayOneHeader}
                   onPress={() => scrollToSection({ isDayOne: false })}
                 />
               </ThemedView>
-            );
+            )
           }}
           renderItem={({ item }) => {
-            const isDayOne = item.day === 1;
-            if (item.type === "section-header") {
+            const isDayOne = item.day === 1
+            if (item.type === 'section-header') {
               return (
                 <ThemedView
                   style={[
@@ -173,22 +171,22 @@ export default function Schedule() {
                 >
                   <SectionListButton
                     title="Day 1"
-                    subtitle={!shouldUseLocalTz ? "(May 15)" : null}
+                    subtitle={!shouldUseLocalTz ? '(May 15)' : null}
                     isBold={isDayOne}
                     onPress={() => scrollToSection({ isDayOne: true })}
                   />
                   <SectionListButton
                     title="Day 2"
-                    subtitle={!shouldUseLocalTz ? "(May 16)" : null}
+                    subtitle={!shouldUseLocalTz ? '(May 16)' : null}
                     isBold={!isDayOne}
                     onPress={() => scrollToSection({ isDayOne: false })}
                   />
                 </ThemedView>
-              );
+              )
             }
 
             if (item.item.isServiceSession) {
-              return <ActivityCard session={item.item} />;
+              return <ActivityCard session={item.item} />
             } else {
               return (
                 <TalkCard
@@ -196,14 +194,14 @@ export default function Schedule() {
                   session={item.item}
                   isDayOne={isDayOne}
                 />
-              );
+              )
             }
           }}
         />
         <Header scrollOffset={scrollOffset} refreshing={isRefreshing} />
       </ThemedView>
     </ThemedView>
-  );
+  )
 }
 
 const SectionListButton = ({
@@ -212,12 +210,12 @@ const SectionListButton = ({
   title,
   subtitle,
 }: {
-  onPress: () => void;
-  isBold: boolean;
-  title: string;
-  subtitle: string | null;
+  onPress: () => void
+  isBold: boolean
+  title: string
+  subtitle: string | null
 }) => {
-  const opacity = { opacity: isBold ? 1 : 0.5 };
+  const opacity = { opacity: isBold ? 1 : 0.5 }
 
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
@@ -234,42 +232,42 @@ const SectionListButton = ({
         ) : null}
       </ThemedText>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
 interface HeaderProps {
-  scrollOffset: SharedValue<number>;
-  refreshing: boolean;
+  scrollOffset: SharedValue<number>
+  refreshing: boolean
 }
 
 function Header({ scrollOffset, refreshing }: HeaderProps) {
   const settingsBgColor = useThemeColor({
     light: theme.colorThemeGrey,
-    dark: "rgba(255, 255, 255, 0.2)",
-  });
+    dark: 'rgba(255, 255, 255, 0.2)',
+  })
 
   const animatedHeader = useAnimatedStyle(() => ({
     height: interpolate(
       scrollOffset.value,
       [0, EXPANDED_HEADER],
-      [EXPANDED_HEADER, 0],
+      [EXPANDED_HEADER, 0]
     ),
-  }));
+  }))
 
   const animatedRow = useAnimatedStyle(() => ({
     height: interpolate(
       scrollOffset.value,
       [0, ROW_HEIGHT],
       [ROW_HEIGHT, 0],
-      Extrapolation.CLAMP,
+      Extrapolation.CLAMP
     ),
     paddingVertical: interpolate(
       scrollOffset.value,
       [0, ROW_HEIGHT],
       [theme.space8, 0],
-      Extrapolation.CLAMP,
+      Extrapolation.CLAMP
     ),
-  }));
+  }))
 
   return (
     <Animated.View style={[styles.header, animatedHeader]}>
@@ -279,7 +277,7 @@ function Header({ scrollOffset, refreshing }: HeaderProps) {
       >
         <TimeZoneSwitch />
       </Animated.View>
-      <View style={{ position: "absolute", right: 20, top: 15 }}>
+      <View style={{ position: 'absolute', right: 20, top: 15 }}>
         <ActivityIndicator
           size="small"
           hidesWhenStopped={true}
@@ -287,7 +285,7 @@ function Header({ scrollOffset, refreshing }: HeaderProps) {
         />
       </View>
     </Animated.View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -298,23 +296,23 @@ const styles = StyleSheet.create({
     marginBottom: theme.space12,
     paddingHorizontal: theme.space16,
     paddingVertical: theme.space12,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     borderBottomWidth: 3,
   },
   row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: theme.space8,
     backgroundColor: theme.colorThemeLightGrey,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   header: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     zIndex: 1,
-    width: "100%",
+    width: '100%',
   },
-});
+})

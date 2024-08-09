@@ -1,38 +1,38 @@
-import Entypo from "@expo/vector-icons/build/Entypo";
-import Feather from "@expo/vector-icons/build/Feather";
-import { TextInput, StyleSheet, View } from "react-native";
+import Entypo from '@expo/vector-icons/build/Entypo'
+import Feather from '@expo/vector-icons/build/Feather'
+import { TextInput, StyleSheet, View } from 'react-native'
 
-import { useThemeColor } from "./Themed";
+import { useThemeColor } from './Themed'
 
-import { theme } from "@/theme";
-import { PressableArea } from "./PressableArea";
+import { theme } from '@/theme'
+import { PressableArea } from './PressableArea'
 
 export function SearchInput({
   value,
   onChange,
 }: {
-  value: string;
-  onChange: (value: string) => void;
+  value: string
+  onChange: (value: string) => void
 }) {
   const iconColor = useThemeColor({
     light: theme.colorGrey,
     dark: theme.colorWhite,
-  });
+  })
   const textColor = useThemeColor({
     light: theme.colorBlack,
     dark: theme.colorWhite,
-  });
+  })
   const searchInputColor = useThemeColor({
     light: theme.colorWhite,
-    dark: "rgba(255,255,255,0.15)",
-  });
+    dark: 'rgba(255,255,255,0.15)',
+  })
 
   const placeholderTextColor = useThemeColor({
     light: theme.colorGrey,
-    dark: "rgba(255,255,255,0.5)",
-  });
+    dark: 'rgba(255,255,255,0.5)',
+  })
 
-  const shadow = useThemeColor({ light: theme.dropShadow, dark: undefined });
+  const shadow = useThemeColor({ light: theme.dropShadow, dark: undefined })
 
   return (
     <View>
@@ -57,7 +57,7 @@ export function SearchInput({
       />
       {value ? (
         <PressableArea
-          onPress={() => onChange("")}
+          onPress={() => onChange('')}
           style={styles.clearIcon}
           hitSlop={30}
         >
@@ -65,7 +65,7 @@ export function SearchInput({
         </PressableArea>
       ) : null}
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -80,13 +80,13 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize18,
   },
   searchIcon: {
-    position: "absolute",
+    position: 'absolute',
     top: theme.space24,
     left: theme.space24,
   },
   clearIcon: {
-    position: "absolute",
+    position: 'absolute',
     top: theme.space24,
     right: theme.space24,
   },
-});
+})

@@ -1,18 +1,18 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View } from 'react-native'
 
-import { ThemedText, ThemedView } from "./Themed";
+import { ThemedText, ThemedView } from './Themed'
 
-import { useReactConfStore } from "@/store/reactConfStore";
-import { theme } from "@/theme";
-import { Session } from "@/types";
-import { formatSessionTime } from "@/utils/formatDate";
+import { useReactConfStore } from '@/store/reactConfStore'
+import { theme } from '@/theme'
+import { Session } from '@/types'
+import { formatSessionTime } from '@/utils/formatDate'
 
 type Props = {
-  session: Session;
-};
+  session: Session
+}
 
 export function ActivityCard({ session }: Props) {
-  const shouldUseLocalTz = useReactConfStore((state) => state.shouldUseLocalTz);
+  const shouldUseLocalTz = useReactConfStore((state) => state.shouldUseLocalTz)
 
   return (
     <ThemedView style={styles.container}>
@@ -28,7 +28,7 @@ export function ActivityCard({ session }: Props) {
         </ThemedText>
       </View>
     </ThemedView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.borderRadius10,
   },
   row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-});
+})

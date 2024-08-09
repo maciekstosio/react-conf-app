@@ -1,10 +1,10 @@
-import { StyleSheet, Switch } from "react-native";
-import { ThemedText, ThemedView } from "./Themed";
-import { useState } from "react";
-import { theme } from "@/theme";
+import { StyleSheet, Switch } from 'react-native'
+import { ThemedText, ThemedView } from './Themed'
+import { useState } from 'react'
+import { theme } from '@/theme'
 
 export function ReactCompilerDemo() {
-  const [value, setValue] = useState(false);
+  const [value, setValue] = useState(false)
 
   return (
     <>
@@ -31,9 +31,9 @@ export function ReactCompilerDemo() {
         </ThemedText>
         <ThemedView
           style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
           <Switch
@@ -45,26 +45,26 @@ export function ReactCompilerDemo() {
         </ThemedView>
       </ThemedView>
     </>
-  );
+  )
 }
 
-let numberOfRenders = 0;
+let numberOfRenders = 0
 
 function RenderCounter() {
-  numberOfRenders++;
+  numberOfRenders++
   return (
     <ThemedView style={{ flex: 1, marginLeft: theme.space24 }}>
       <ThemedText>Number of renders: {numberOfRenders}</ThemedText>
     </ThemedView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   centered: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   section: {
     padding: theme.space24,
     marginBottom: 200,
   },
-});
+})

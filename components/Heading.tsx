@@ -1,16 +1,16 @@
-import { Image, View, StyleSheet } from "react-native";
+import { Image, View, StyleSheet } from 'react-native'
 
-import { ThemedText } from "./Themed";
-import { theme } from "../theme";
+import { ThemedText } from './Themed'
+import { theme } from '../theme'
 
-const DESERT_SIZE = 100;
+const DESERT_SIZE = 100
 
 export function Heading() {
   return (
     <View style={styles.heading}>
       <Image
         style={styles.image}
-        source={require("../assets/images/desert.png")}
+        source={require('../assets/images/desert.png')}
       />
       <View>
         <ThemedText
@@ -26,7 +26,7 @@ export function Heading() {
         <ThemedText>Henderson, Nevada</ThemedText>
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
     height: DESERT_SIZE,
   },
   heading: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
     marginBottom: theme.space12,
   },
-});
+})

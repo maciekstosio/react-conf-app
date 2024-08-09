@@ -1,22 +1,22 @@
-import { StyleSheet, ActivityIndicator } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { StyleSheet, ActivityIndicator } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import { ThemedText, useThemeColor } from "./Themed";
+import { ThemedText, useThemeColor } from './Themed'
 
-import { theme } from "@/theme";
+import { theme } from '@/theme'
 
-const buttonTextSize = 22;
+const buttonTextSize = 22
 
 export function Button({
   title,
   onPress,
   isLoading,
 }: {
-  title: string;
-  onPress: () => void;
-  isLoading?: boolean;
+  title: string
+  onPress: () => void
+  isLoading?: boolean
 }) {
-  const shadow = useThemeColor({ light: theme.dropShadow, dark: undefined });
+  const shadow = useThemeColor({ light: theme.dropShadow, dark: undefined })
 
   return (
     <TouchableOpacity
@@ -36,7 +36,7 @@ export function Button({
         </ThemedText>
       )}
     </TouchableOpacity>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colorReactDarkBlue,
     minWidth: 150,
     minHeight: 40,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-});
+})

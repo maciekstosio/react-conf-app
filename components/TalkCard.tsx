@@ -1,31 +1,31 @@
-import { Link } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { Link } from 'expo-router'
+import { StyleSheet, View } from 'react-native'
 
-import { Bookmark } from "./Bookmark";
-import { SpeakerImage } from "./SpeakerImage";
-import { ThemedText, ThemedView, useThemeColor } from "./Themed";
-import { theme } from "../theme";
-import { Session, Speaker } from "../types";
-import { formatSessionTime } from "../utils/formatDate";
+import { Bookmark } from './Bookmark'
+import { SpeakerImage } from './SpeakerImage'
+import { ThemedText, ThemedView, useThemeColor } from './Themed'
+import { theme } from '../theme'
+import { Session, Speaker } from '../types'
+import { formatSessionTime } from '../utils/formatDate'
 
-import { useReactConfStore } from "@/store/reactConfStore";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { useReactConfStore } from '@/store/reactConfStore'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 type Props = {
-  session: Session;
-  isDayOne: boolean;
-};
+  session: Session
+  isDayOne: boolean
+}
 
 export function TalkCard({ session, isDayOne }: Props) {
-  const shouldUseLocalTz = useReactConfStore((state) => state.shouldUseLocalTz);
+  const shouldUseLocalTz = useReactConfStore((state) => state.shouldUseLocalTz)
 
-  const shadow = useThemeColor({ light: theme.dropShadow, dark: undefined });
+  const shadow = useThemeColor({ light: theme.dropShadow, dark: undefined })
 
   return (
     <Link
       push
       href={{
-        pathname: "/talk/[talk]",
+        pathname: '/talk/[talk]',
         params: { talk: session.id },
       }}
       asChild
@@ -41,7 +41,7 @@ export function TalkCard({ session, isDayOne }: Props) {
               isDayOne ? theme.colorReactLightBlue : theme.colorLightGreen
             }
             darkColor={
-              isDayOne ? "rgba(88,196,220, 0.5)" : "rgba(155,223,177, 0.5)"
+              isDayOne ? 'rgba(88,196,220, 0.5)' : 'rgba(155,223,177, 0.5)'
             }
             style={styles.heading}
           >
@@ -62,10 +62,10 @@ export function TalkCard({ session, isDayOne }: Props) {
           <ThemedView
             style={styles.content}
             lightColor={
-              isDayOne ? "rgba(88,196,220, 0.15)" : "rgba(155,223,177, 0.15)"
+              isDayOne ? 'rgba(88,196,220, 0.15)' : 'rgba(155,223,177, 0.15)'
             }
             darkColor={
-              isDayOne ? "rgba(88,196,220, 0.15)" : "rgba(155,223,177, 0.15)"
+              isDayOne ? 'rgba(88,196,220, 0.15)' : 'rgba(155,223,177, 0.15)'
             }
           >
             {session.speakers.map((speaker) => (
@@ -75,7 +75,7 @@ export function TalkCard({ session, isDayOne }: Props) {
         </ThemedView>
       </TouchableOpacity>
     </Link>
-  );
+  )
 }
 
 function SpeakerDetails({ speaker }: { speaker: Speaker }) {
@@ -91,7 +91,7 @@ function SpeakerDetails({ speaker }: { speaker: Speaker }) {
         </ThemedText>
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -107,12 +107,12 @@ const styles = StyleSheet.create({
     paddingTop: theme.space12,
   },
   speaker: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginBottom: theme.space12,
   },
   speakerDetails: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   content: {
     paddingTop: theme.space12,
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: theme.borderRadius10,
   },
   timeAndBookmark: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-});
+})

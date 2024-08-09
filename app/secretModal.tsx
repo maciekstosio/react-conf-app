@@ -1,15 +1,15 @@
-import LottieView from "lottie-react-native";
-import { Platform, StyleSheet, useWindowDimensions } from "react-native";
+import LottieView from 'lottie-react-native'
+import { Platform, StyleSheet, useWindowDimensions } from 'react-native'
 
-import { ThemedText, ThemedView } from "../components/Themed";
-import { theme } from "../theme";
-import { ExpoImageDemo } from "@/components/ExpoImageDemo";
-import ChangeAppIcon from "@/components/ChangeAppIcon";
-import { ScrollView } from "react-native-gesture-handler";
-import { ReactCompilerDemo } from "@/components/ReactCompilerDemo";
+import { ThemedText, ThemedView } from '../components/Themed'
+import { theme } from '../theme'
+import { ExpoImageDemo } from '@/components/ExpoImageDemo'
+import ChangeAppIcon from '@/components/ChangeAppIcon'
+import { ScrollView } from 'react-native-gesture-handler'
+import { ReactCompilerDemo } from '@/components/ReactCompilerDemo'
 
 export default function SecretModal() {
-  const { width } = useWindowDimensions();
+  const { width } = useWindowDimensions()
 
   return (
     <ScrollView>
@@ -18,12 +18,12 @@ export default function SecretModal() {
         darkColor={theme.colorDarkBlue}
         lightColor={theme.colorWhite}
       >
-        {Platform.OS === "ios" ? (
+        {Platform.OS === 'ios' ? (
           <LottieView
             autoPlay
             loop={false}
             style={[styles.animation, { width }]}
-            source={require("../assets/lottie/tada.json")}
+            source={require('../assets/lottie/tada.json')}
           />
         ) : null}
         <ThemedText
@@ -48,7 +48,7 @@ export default function SecretModal() {
         <ReactCompilerDemo />
       </ThemedView>
     </ScrollView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -61,14 +61,14 @@ const styles = StyleSheet.create({
   },
   heading: {
     paddingHorizontal: theme.space24,
-    textAlign: "center",
+    textAlign: 'center',
   },
   animation: {
     height: 200,
-    position: "absolute",
+    position: 'absolute',
   },
   description: {
     paddingHorizontal: theme.space24,
     marginBottom: theme.fontSize24,
   },
-});
+})

@@ -1,17 +1,17 @@
-import { Image } from "expo-image";
-import { View, StyleSheet, Platform } from "react-native";
-import AppIcon from "react-native-dynamic-app-icon";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Image } from 'expo-image'
+import { View, StyleSheet, Platform } from 'react-native'
+import AppIcon from 'react-native-dynamic-app-icon'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import { ThemedText, ThemedView } from "../components/Themed";
-import { theme } from "../theme";
+import { ThemedText, ThemedView } from '../components/Themed'
+import { theme } from '../theme'
 
-const defaultIcon = require("../assets/icon.png");
-const desertIcon = require("../assets/icons/icon-desert.png");
+const defaultIcon = require('../assets/icon.png')
+const desertIcon = require('../assets/icons/icon-desert.png')
 
 export default function ChangeAppIcon() {
-  if (Platform.OS === "android") {
-    return null;
+  if (Platform.OS === 'android') {
+    return null
   }
   return (
     <ThemedView
@@ -33,7 +33,7 @@ export default function ChangeAppIcon() {
             activeOpacity={0.8}
             key={index}
             onPress={() => {
-              AppIcon.setAppIcon(String(index));
+              AppIcon.setAppIcon(String(index))
             }}
           >
             <Image source={icon} style={styles.icon} />
@@ -41,7 +41,7 @@ export default function ChangeAppIcon() {
         ))}
       </View>
     </ThemedView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -52,18 +52,18 @@ const styles = StyleSheet.create({
     margin: 4,
   },
   icons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
   },
   heading: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   centered: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   section: {
     padding: theme.space24,
     marginBottom: theme.space24,
   },
-});
+})

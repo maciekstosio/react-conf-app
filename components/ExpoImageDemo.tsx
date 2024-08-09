@@ -1,54 +1,54 @@
-import { Platform, StyleSheet, View } from "react-native";
-import { Image } from "expo-image";
-import { theme } from "@/theme";
-import { ThemedText, ThemedView, useThemeColor } from "./Themed";
-import { useState } from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Platform, StyleSheet, View } from 'react-native'
+import { Image } from 'expo-image'
+import { theme } from '@/theme'
+import { ThemedText, ThemedView, useThemeColor } from './Themed'
+import { useState } from 'react'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const effects = [
   {
-    name: "None - image 1",
+    name: 'None - image 1',
     effect: null,
-    image: require("../assets/images/react-blue.png"),
+    image: require('../assets/images/react-blue.png'),
   },
   {
-    name: "Cross Dissolve - image 2",
-    effect: "cross-dissolve",
-    image: require("../assets/images/react-green.png"),
-  },
-  {
-    name: Platform.select({
-      ios: "Flip From Right - image 3",
-      default: "Cross Dissolve - image 3",
-    }),
-    effect: Platform.select({
-      ios: "flip-from-right",
-      default: "cross-dissolve",
-    }),
-    image: require("../assets/images/react-dark-blue.png"),
+    name: 'Cross Dissolve - image 2',
+    effect: 'cross-dissolve',
+    image: require('../assets/images/react-green.png'),
   },
   {
     name: Platform.select({
-      ios: "Curl Down - image 4",
-      default: "Cross Dissolve - image 4",
+      ios: 'Flip From Right - image 3',
+      default: 'Cross Dissolve - image 3',
     }),
     effect: Platform.select({
-      ios: "curl-down",
-      default: "cross-dissolve",
+      ios: 'flip-from-right',
+      default: 'cross-dissolve',
     }),
-    image: require("../assets/images/react-orange.png"),
+    image: require('../assets/images/react-dark-blue.png'),
   },
-];
+  {
+    name: Platform.select({
+      ios: 'Curl Down - image 4',
+      default: 'Cross Dissolve - image 4',
+    }),
+    effect: Platform.select({
+      ios: 'curl-down',
+      default: 'cross-dissolve',
+    }),
+    image: require('../assets/images/react-orange.png'),
+  },
+]
 
 export function ExpoImageDemo() {
   const [imageEffect, setImageEffect] = useState<(typeof effects)[number]>(
-    effects[0],
-  );
+    effects[0]
+  )
 
   const radioColor = useThemeColor({
     light: theme.colorBlack,
     dark: theme.colorWhite,
-  });
+  })
 
   return (
     <>
@@ -69,7 +69,7 @@ export function ExpoImageDemo() {
           style={{
             width: 250,
             height: 250,
-            alignSelf: "center",
+            alignSelf: 'center',
             backgroundColor: theme.colorBlack,
             marginBottom: theme.space24,
           }}
@@ -79,7 +79,7 @@ export function ExpoImageDemo() {
               ? {
                   effect: imageEffect.effect as any,
                   duration: 500,
-                  timing: "ease-in-out",
+                  timing: 'ease-in-out',
                 }
               : null
           }
@@ -88,7 +88,7 @@ export function ExpoImageDemo() {
           <TouchableOpacity
             style={styles.option}
             onPress={() => {
-              setImageEffect(effect);
+              setImageEffect(effect)
             }}
             key={effect.name}
           >
@@ -100,33 +100,33 @@ export function ExpoImageDemo() {
               ) : null}
             </View>
 
-            <ThemedText fontWeight={effect === imageEffect ? "bold" : "medium"}>
-              {effect.name || "None"}
+            <ThemedText fontWeight={effect === imageEffect ? 'bold' : 'medium'}>
+              {effect.name || 'None'}
             </ThemedText>
           </TouchableOpacity>
         ))}
       </ThemedView>
     </>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   image: {
     width: 250,
     height: 250,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   section: {
     padding: theme.space24,
     marginBottom: theme.space24,
   },
   centered: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   option: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginBottom: theme.space8,
-    alignItems: "center",
+    alignItems: 'center',
   },
   radioOuter: {
     height: 24,
@@ -134,12 +134,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 24,
     marginRight: theme.space8,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   radioInner: {
     width: 12,
     height: 12,
     borderRadius: 12,
   },
-});
+})

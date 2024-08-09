@@ -1,27 +1,27 @@
-import React from "react";
-import { Text, View, useColorScheme, TextStyle } from "react-native";
-import Animated from "react-native-reanimated";
+import React from 'react'
+import { Text, View, useColorScheme, TextStyle } from 'react-native'
+import Animated from 'react-native-reanimated'
 
-import { theme } from "../theme";
+import { theme } from '../theme'
 
 type ThemeProps = {
-  lightColor?: string;
-  darkColor?: string;
-};
+  lightColor?: string
+  darkColor?: string
+}
 
 export type TextProps = ThemeProps & {
-  marginBottom?: number;
-  fontSize?: TextStyle["fontSize"];
-  fontWeight?: "light" | "medium" | "bold";
-  italic?: boolean;
-  animated?: boolean;
-} & Text["props"];
-export type ViewProps = ThemeProps & View["props"] & { animated?: boolean };
+  marginBottom?: number
+  fontSize?: TextStyle['fontSize']
+  fontWeight?: 'light' | 'medium' | 'bold'
+  italic?: boolean
+  animated?: boolean
+} & Text['props']
+export type ViewProps = ThemeProps & View['props'] & { animated?: boolean }
 
 export function useThemeColor<T, U>(props: { light: T; dark: U }) {
-  const theme = useColorScheme() ?? "light";
+  const theme = useColorScheme() ?? 'light'
   // const theme = "dark";
-  return props[theme];
+  return props[theme]
 }
 
 export function ThemedText(props: TextProps) {
@@ -35,20 +35,20 @@ export function ThemedText(props: TextProps) {
     italic,
     animated,
     ...otherProps
-  } = props;
+  } = props
   const color = useThemeColor({
     light: lightColor || theme.colorBlack,
     dark: darkColor || theme.colorWhite,
-  });
+  })
   const fontFamily = (() => {
-    if (fontWeight === "light") {
-      return italic ? theme.fontFamilyLightItalic : theme.fontFamilyLight;
-    } else if (fontWeight === "bold") {
-      return italic ? theme.fontFamilyBoldItalic : theme.fontFamilyBold;
+    if (fontWeight === 'light') {
+      return italic ? theme.fontFamilyLightItalic : theme.fontFamilyLight
+    } else if (fontWeight === 'bold') {
+      return italic ? theme.fontFamilyBoldItalic : theme.fontFamilyBold
     } else {
-      return italic ? theme.fontFamilyItalic : theme.fontFamily;
+      return italic ? theme.fontFamilyItalic : theme.fontFamily
     }
-  })();
+  })()
 
   if (animated) {
     return (
@@ -56,7 +56,7 @@ export function ThemedText(props: TextProps) {
         style={[{ color, marginBottom, fontSize, fontFamily }, style]}
         {...otherProps}
       />
-    );
+    )
   }
 
   return (
@@ -64,21 +64,21 @@ export function ThemedText(props: TextProps) {
       style={[{ color, marginBottom, fontSize, fontFamily }, style]}
       {...otherProps}
     />
-  );
+  )
 }
 
 export function ThemedView(props: ViewProps) {
-  const { style, lightColor, darkColor, animated, ...otherProps } = props;
+  const { style, lightColor, darkColor, animated, ...otherProps } = props
   const backgroundColor = useThemeColor({
-    light: lightColor || "transparent",
-    dark: darkColor || "transparent",
-  });
+    light: lightColor || 'transparent',
+    dark: darkColor || 'transparent',
+  })
 
   if (animated) {
     return (
       <Animated.View style={[{ backgroundColor }, style]} {...otherProps} />
-    );
+    )
   }
 
-  return <View style={[{ backgroundColor }, style]} {...otherProps} />;
+  return <View style={[{ backgroundColor }, style]} {...otherProps} />
 }

@@ -1,43 +1,43 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { create } from 'zustand'
+import { persist, createJSONStorage } from 'zustand/middleware'
 
-import initialAllSessions from "@/data/allSessions.json";
-import { ApiAllSessions, Session } from "@/types";
-import { formatSessions } from "@/utils/sessions";
+import initialAllSessions from '@/data/allSessions.json'
+import { ApiAllSessions, Session } from '@/types'
+import { formatSessions } from '@/utils/sessions'
 
 const doFetch = async (url: string) => {
   try {
-    const result = await fetch(url);
-    return await result.json();
+    const result = await fetch(url)
+    return await result.json()
   } catch {
-    return null;
+    return null
   }
-};
+}
 
 type ConfState = {
   schedule: {
-    dayOne: Session[];
-    dayTwo: Session[];
-  };
-  allSessions: ApiAllSessions;
-  isRefreshing?: boolean;
-  lastRefreshed: string | null;
-  refreshData: (options?: { ttlMs?: number }) => Promise<void>;
-  shouldUseLocalTz: boolean;
-  toggleLocalTz: () => void;
-};
+    dayOne: Session[]
+    dayTwo: Session[]
+  }
+  allSessions: ApiAllSessions
+  isRefreshing?: boolean
+  lastRefreshed: string | null
+  refreshData: (options?: { ttlMs?: number }) => Promise<void>
+  shouldUseLocalTz: boolean
+  toggleLocalTz: () => void
+}
 
 const getInitialSchedule = () => {
-  const [dayOne, dayTwo] = formatSessions(initialAllSessions);
+  const [dayOne, dayTwo] = formatSessions(initialAllSessions)
   return {
     schedule: {
       dayOne,
       dayTwo,
     },
     allSessions: initialAllSessions as ApiAllSessions,
-  };
-};
+  }
+}
 
 export const useReactConfStore = create(
   persist<ConfState>(
@@ -47,31 +47,31 @@ export const useReactConfStore = create(
       lastRefreshed: null,
       shouldUseLocalTz: false,
       refreshData: async (options) => {
-        const ttlMs = options?.ttlMs;
-        const { isRefreshing, lastRefreshed } = get();
+        const ttlMs = options?.ttlMs
+        const { isRefreshing, lastRefreshed } = get()
 
         // Bail out if already refreshing
         if (isRefreshing) {
-          return;
+          return
         }
 
         // Bail out if last refresh was within TTL
         if (lastRefreshed) {
-          const diff = new Date().getTime() - new Date(lastRefreshed).getTime();
+          const diff = new Date().getTime() - new Date(lastRefreshed).getTime()
           if (ttlMs && diff < ttlMs) {
-            return;
+            return
           }
         }
 
         try {
-          set({ isRefreshing: true });
+          set({ isRefreshing: true })
 
           const allSessions = await doFetch(
-            "https://sessionize.com/api/v2/ctta9bhe/view/All",
-          );
+            'https://sessionize.com/api/v2/ctta9bhe/view/All'
+          )
 
           if (allSessions) {
-            const [dayOne, dayTwo] = formatSessions(allSessions);
+            const [dayOne, dayTwo] = formatSessions(allSessions)
             set({
               schedule: {
                 dayOne,
@@ -79,25 +79,25 @@ export const useReactConfStore = create(
               },
               allSessions,
               lastRefreshed: new Date().toISOString(),
-            });
+            })
           }
         } catch (e) {
-          console.warn(e);
+          console.warn(e)
         } finally {
-          set({ isRefreshing: false });
+          set({ isRefreshing: false })
         }
       },
       toggleLocalTz: () => {
-        set((state) => ({ shouldUseLocalTz: !state.shouldUseLocalTz }));
+        set((state) => ({ shouldUseLocalTz: !state.shouldUseLocalTz }))
       },
     }),
     {
-      name: "react-conf-2024-store",
+      name: 'react-conf-2024-store',
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (state) => {
-        const { isRefreshing: _, ...dataToPersist } = state;
-        return dataToPersist;
+        const { isRefreshing: _, ...dataToPersist } = state
+        return dataToPersist
       },
-    },
-  ),
-);
+    }
+  )
+)
