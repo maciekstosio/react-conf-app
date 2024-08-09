@@ -1,8 +1,8 @@
-import { Image } from "expo-image";
-import { Link, useLocalSearchParams, useNavigation } from "expo-router";
-import React, { useEffect } from "react";
-import { Platform, StyleSheet, View, useColorScheme } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Image } from 'expo-image'
+import { Link, useLocalSearchParams, useNavigation } from 'expo-router'
+import React, { useEffect } from 'react'
+import { Platform, StyleSheet, View, useColorScheme } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -10,50 +10,50 @@ import Animated, {
   interpolate,
   Extrapolation,
   SharedValue,
-} from "react-native-reanimated";
-import { BlurView } from "expo-blur";
-import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
+} from 'react-native-reanimated'
+import { BlurView } from 'expo-blur'
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler'
 
-import { NotFound } from "@/components/NotFound";
-import { SpeakerImage } from "@/components/SpeakerImage";
-import { ThemedText, ThemedView, useThemeColor } from "@/components/Themed";
-import { useReactConfStore } from "@/store/reactConfStore";
-import { theme } from "@/theme";
-import { Session, Speaker } from "@/types";
-import { formatSessionTime } from "@/utils/formatDate";
-import { useHeaderHeight } from "@react-navigation/elements";
-import { Bookmark } from "@/components/Bookmark";
+import { NotFound } from '@/components/NotFound'
+import { SpeakerImage } from '@/components/SpeakerImage'
+import { ThemedText, ThemedView, useThemeColor } from '@/components/Themed'
+import { useReactConfStore } from '@/store/reactConfStore'
+import { theme } from '@/theme'
+import { Session, Speaker } from '@/types'
+import { formatSessionTime } from '@/utils/formatDate'
+import { useHeaderHeight } from '@react-navigation/elements'
+import { Bookmark } from '@/components/Bookmark'
 
-const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
+const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
 
 const findTalk = (
   talkId: string | string[] | undefined,
-  { dayOne, dayTwo }: { dayOne: Session[]; dayTwo: Session[] },
+  { dayOne, dayTwo }: { dayOne: Session[]; dayTwo: Session[] }
 ) => {
-  const talkDay1 = dayOne.find((session) => session.id === talkId);
+  const talkDay1 = dayOne.find((session) => session.id === talkId)
   if (talkDay1) {
-    return { talk: talkDay1, isDayOne: true };
+    return { talk: talkDay1, isDayOne: true }
   }
-  const talkDay2 = dayTwo.find((session) => session.id === talkId);
+  const talkDay2 = dayTwo.find((session) => session.id === talkId)
   if (talkDay2) {
-    return { talk: talkDay2, isDayOne: false };
+    return { talk: talkDay2, isDayOne: false }
   }
 
-  return { talk: null, isDayOne: false };
-};
+  return { talk: null, isDayOne: false }
+}
 
 export default function TalkDetail() {
-  const navigation = useNavigation();
-  const params = useLocalSearchParams();
-  const talkId = params.talkId || undefined;
-  const { dayOne, dayTwo } = useReactConfStore((state) => state.schedule);
-  const shouldUseLocalTz = useReactConfStore((state) => state.shouldUseLocalTz);
+  const navigation = useNavigation()
+  const params = useLocalSearchParams()
+  const talkId = params.talkId || undefined
+  const { dayOne, dayTwo } = useReactConfStore((state) => state.schedule)
+  const shouldUseLocalTz = useReactConfStore((state) => state.shouldUseLocalTz)
 
   // Animated header on scroll
-  const translationY = useSharedValue(0);
+  const translationY = useSharedValue(0)
   const scrollHandler = useAnimatedScrollHandler((event) => {
-    translationY.value = event.contentOffset.y;
-  });
+    translationY.value = event.contentOffset.y
+  })
   const headerStyle = useAnimatedStyle(() => {
     return {
       transform: [
@@ -62,7 +62,7 @@ export default function TalkDetail() {
             translationY.value,
             [-120, 0, 150],
             [-90, 0, 120],
-            Extrapolation.CLAMP,
+            Extrapolation.CLAMP
           ),
         },
         {
@@ -70,27 +70,27 @@ export default function TalkDetail() {
             translationY.value,
             [-120, 0],
             [1.4, 1],
-            Extrapolation.CLAMP,
+            Extrapolation.CLAMP
           ),
         },
       ],
       opacity: interpolate(translationY.value, [0, 100], [1, 0.6]),
-    };
-  });
+    }
+  })
 
-  const { talk, isDayOne } = findTalk(talkId, { dayOne, dayTwo });
+  const { talk, isDayOne } = findTalk(talkId, { dayOne, dayTwo })
 
   useEffect(() => {
     if (talk) {
-      navigation.setOptions({ headerRight: () => <Bookmark session={talk} /> });
+      navigation.setOptions({ headerRight: () => <Bookmark session={talk} /> })
     }
-  }, [navigation, talk]);
+  }, [navigation, talk])
 
-  const insets = useSafeAreaInsets();
+  const insets = useSafeAreaInsets()
   const iconColor = useThemeColor({
     light: theme.colorWhite,
     dark: theme.colorDarkBlue,
-  });
+  })
 
   return (
     <ThemedView
@@ -117,13 +117,13 @@ export default function TalkDetail() {
                 isDayOne ? theme.colorReactLightBlue : theme.colorLightGreen
               }
               darkColor={
-                isDayOne ? "rgba(88,196,220, 0.5)" : "rgba(155,223,177, 0.5)"
+                isDayOne ? 'rgba(88,196,220, 0.5)' : 'rgba(155,223,177, 0.5)'
               }
               style={[styles.header, headerStyle]}
             >
               <Image
                 tintColor={iconColor}
-                source={require("../../assets/images/react-logo.png")}
+                source={require('../../assets/images/react-logo.png')}
                 style={styles.reactLogo}
               />
               <View style={styles.centered}>
@@ -146,7 +146,7 @@ export default function TalkDetail() {
                   push
                   key={speaker.id}
                   href={{
-                    pathname: "/speaker/[speaker]",
+                    pathname: '/speaker/[speaker]',
                     params: { speaker: speaker.id },
                   }}
                   asChild
@@ -160,8 +160,8 @@ export default function TalkDetail() {
                 title="Date"
                 value={
                   isDayOne
-                    ? "May 15, 2024 (Conference Day 1)"
-                    : "May 15, 2024 (Conference Day 2)"
+                    ? 'May 15, 2024 (Conference Day 1)'
+                    : 'May 15, 2024 (Conference Day 2)'
                 }
               />
               <Section
@@ -173,7 +173,7 @@ export default function TalkDetail() {
             </ThemedView>
           </AnimatedScrollView>
 
-          {Platform.OS === "android" ? (
+          {Platform.OS === 'android' ? (
             <HeaderBackgroundAndroid scrollTranslationY={translationY} />
           ) : (
             <HeaderBackgroundIOS scrollTranslationY={translationY} />
@@ -183,7 +183,7 @@ export default function TalkDetail() {
         <NotFound message="Talk not found" />
       )}
     </ThemedView>
-  );
+  )
 }
 
 // We use a transparent header background on Android to provide a nice looking
@@ -193,12 +193,12 @@ export default function TalkDetail() {
 function HeaderBackgroundAndroid({
   scrollTranslationY,
 }: {
-  scrollTranslationY: SharedValue<number>;
+  scrollTranslationY: SharedValue<number>
 }) {
-  const headerHeight = useHeaderHeight();
+  const headerHeight = useHeaderHeight()
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: interpolate(scrollTranslationY.value, [50, 150], [0, 1]),
-  }));
+  }))
 
   return (
     <ThemedView
@@ -209,7 +209,7 @@ function HeaderBackgroundAndroid({
         animatedStyle,
         {
           height: headerHeight,
-          position: "absolute",
+          position: 'absolute',
           elevation: 4,
           top: 0,
           left: 0,
@@ -217,31 +217,31 @@ function HeaderBackgroundAndroid({
         },
       ]}
     />
-  );
+  )
 }
 
 function HeaderBackgroundIOS({
   scrollTranslationY,
 }: {
-  scrollTranslationY: SharedValue<number>;
+  scrollTranslationY: SharedValue<number>
 }) {
-  const headerHeight = useHeaderHeight();
-  const colorScheme = useColorScheme();
+  const headerHeight = useHeaderHeight()
+  const colorScheme = useColorScheme()
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: interpolate(
       scrollTranslationY.value,
       [0, 150],
       [0, 1],
-      Extrapolation.CLAMP,
+      Extrapolation.CLAMP
     ),
-  }));
+  }))
 
   return (
     <Animated.View
       style={[
         animatedStyle,
         {
-          position: "absolute",
+          position: 'absolute',
           elevation: 4,
           top: 0,
           left: 0,
@@ -252,14 +252,14 @@ function HeaderBackgroundIOS({
       <BlurView
         intensity={40}
         tint={
-          colorScheme === "light"
-            ? "systemThinMaterialLight"
-            : "systemThinMaterialDark"
+          colorScheme === 'light'
+            ? 'systemThinMaterialLight'
+            : 'systemThinMaterialDark'
         }
         style={{ height: headerHeight, flex: 1 }}
       />
     </Animated.View>
-  );
+  )
 }
 
 function SpeakerDetails({ speaker }: { speaker: Speaker }) {
@@ -275,12 +275,12 @@ function SpeakerDetails({ speaker }: { speaker: Speaker }) {
         </ThemedText>
       </View>
     </View>
-  );
+  )
 }
 
 function Section({ title, value }: { title: string; value: string | null }) {
   if (!value) {
-    return null;
+    return null
   }
 
   return (
@@ -292,7 +292,7 @@ function Section({ title, value }: { title: string; value: string | null }) {
         {value}
       </ThemedText>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -303,31 +303,31 @@ const styles = StyleSheet.create({
     height: 250,
     paddingTop: 50,
     paddingHorizontal: theme.space16,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   contentContainer: {
     borderBottomRightRadius: theme.borderRadius20,
     borderBottomLeftRadius: theme.borderRadius20,
   },
   speaker: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginBottom: theme.space12,
   },
   speakerDetails: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   talkTitle: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   centered: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   reactLogo: {
-    position: "absolute",
+    position: 'absolute',
     right: -100,
-    top: "30%",
+    top: '30%',
     height: 300,
     width: 300,
     opacity: 0.2,
@@ -339,4 +339,4 @@ const styles = StyleSheet.create({
     paddingTop: theme.space16,
     paddingHorizontal: theme.space16,
   },
-});
+})

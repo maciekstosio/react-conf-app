@@ -1,29 +1,29 @@
-import { useScrollToTop } from "@react-navigation/native";
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import { useScrollToTop } from '@react-navigation/native'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
 
-import { ThemedText, ThemedView } from "@/components/Themed";
-import { theme } from "@/theme";
-import { TalkCard } from "@/components/TalkCard";
-import { useBookmarkStore } from "@/store/bookmarkStore";
-import { useReactConfStore } from "@/store/reactConfStore";
-import { FlatList } from "react-native-gesture-handler";
+import { ThemedText, ThemedView } from '@/components/Themed'
+import { theme } from '@/theme'
+import { TalkCard } from '@/components/TalkCard'
+import { useBookmarkStore } from '@/store/bookmarkStore'
+import { useReactConfStore } from '@/store/reactConfStore'
+import { FlatList } from 'react-native-gesture-handler'
 
 export default function Bookmarks() {
-  const scrollRef = React.useRef<FlatList>(null);
-  useScrollToTop(scrollRef);
+  const scrollRef = React.useRef<FlatList>(null)
+  useScrollToTop(scrollRef)
 
-  const bookmarks = useBookmarkStore((state) => state.bookmarks);
+  const bookmarks = useBookmarkStore((state) => state.bookmarks)
 
-  const { dayOne, dayTwo } = useReactConfStore((state) => state.schedule);
+  const { dayOne, dayTwo } = useReactConfStore((state) => state.schedule)
 
   const dayOneFiltered = dayOne.filter(
-    (session) => !!bookmarks.find((b) => b.sessionId === session.id),
-  );
+    (session) => !!bookmarks.find((b) => b.sessionId === session.id)
+  )
 
   const dayTwoFiltered = dayTwo.filter(
-    (session) => !!bookmarks.find((b) => b.sessionId === session.id),
-  );
+    (session) => !!bookmarks.find((b) => b.sessionId === session.id)
+  )
 
   return (
     <ThemedView
@@ -63,7 +63,7 @@ export default function Bookmarks() {
         </View>
       )}
     </ThemedView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   bookmarks: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingHorizontal: theme.space24,
   },
-});
+})

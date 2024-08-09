@@ -1,25 +1,25 @@
-import { Link } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { Link } from 'expo-router'
+import { StyleSheet, View } from 'react-native'
 
-import { SpeakerImage } from "./SpeakerImage";
-import { ThemedText, ThemedView, useThemeColor } from "./Themed";
-import { theme } from "../theme";
-import { Speaker } from "../types";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { SpeakerImage } from './SpeakerImage'
+import { ThemedText, ThemedView, useThemeColor } from './Themed'
+import { theme } from '../theme'
+import { Speaker } from '../types'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 type Props = {
-  speaker: Speaker;
-};
+  speaker: Speaker
+}
 
 export function SpeakerCard({ speaker }: Props) {
-  const shadow = useThemeColor({ light: theme.dropShadow, dark: undefined });
+  const shadow = useThemeColor({ light: theme.dropShadow, dark: undefined })
 
   return (
     <Link
       push
       key={speaker.id}
       href={{
-        pathname: "/speaker/[speaker]",
+        pathname: '/speaker/[speaker]',
         params: { speaker: speaker.id },
       }}
       asChild
@@ -48,7 +48,7 @@ export function SpeakerCard({ speaker }: Props) {
         </ThemedView>
       </TouchableOpacity>
     </Link>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -60,10 +60,10 @@ const styles = StyleSheet.create({
   },
   speakerDetail: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   speakerHeadline: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
-});
+})

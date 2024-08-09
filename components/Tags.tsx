@@ -1,11 +1,11 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet } from 'react-native'
 
-import { ThemedText, ThemedView } from "./Themed";
-import { theme } from "../theme";
+import { ThemedText, ThemedView } from './Themed'
+import { theme } from '../theme'
 
 export function Tags({ tags }: { tags: string[] }) {
   if (!tags.length) {
-    return null;
+    return null
   }
 
   return (
@@ -21,14 +21,14 @@ export function Tags({ tags }: { tags: string[] }) {
         </ThemedView>
       ))}
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     marginBottom: theme.space16,
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   tag: {
     borderRadius: theme.borderRadius20,
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
     marginRight: theme.space8,
     marginBottom: theme.space8,
   },
-});
+})

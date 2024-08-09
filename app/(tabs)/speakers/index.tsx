@@ -1,45 +1,45 @@
-import React from "react";
-import { Keyboard, Platform, StyleSheet, View } from "react-native";
+import React from 'react'
+import { Keyboard, Platform, StyleSheet, View } from 'react-native'
 
-import { NotFound } from "@/components/NotFound";
+import { NotFound } from '@/components/NotFound'
 
-import { SpeakerCard } from "@/components/SpeakerCard";
-import { ThemedText, ThemedView } from "@/components/Themed";
-import { useReactConfStore } from "@/store/reactConfStore";
-import { theme } from "@/theme";
-import { FlatList } from "react-native-gesture-handler";
-import { useLocalSearchParams } from "expo-router";
-import useScrollToTopWithOffset from "@/utils/useScrollToTopWithOffset";
+import { SpeakerCard } from '@/components/SpeakerCard'
+import { ThemedText, ThemedView } from '@/components/Themed'
+import { useReactConfStore } from '@/store/reactConfStore'
+import { theme } from '@/theme'
+import { FlatList } from 'react-native-gesture-handler'
+import { useLocalSearchParams } from 'expo-router'
+import useScrollToTopWithOffset from '@/utils/useScrollToTopWithOffset'
 
 export default function Speakers() {
-  const ref = React.useRef(null);
+  const ref = React.useRef(null)
   useScrollToTopWithOffset(
     ref,
     Platform.select({
       ios: -90,
       default: 0,
-    }),
-  );
-  const speakers = useReactConfStore((state) => state.allSessions.speakers);
+    })
+  )
+  const speakers = useReactConfStore((state) => state.allSessions.speakers)
 
-  const params = useLocalSearchParams<{ q?: string }>();
+  const params = useLocalSearchParams<{ q?: string }>()
 
   if (!speakers.length) {
-    return <NotFound message="Speakers unavailable" />;
+    return <NotFound message="Speakers unavailable" />
   }
 
-  const searchText = params?.q?.toLowerCase() || "";
+  const searchText = params?.q?.toLowerCase() || ''
 
   const filteredSpeakers = speakers.filter((speaker) => {
     if (!searchText) {
-      return true;
+      return true
     }
-    return speaker.fullName.toLowerCase().includes(searchText);
-  });
+    return speaker.fullName.toLowerCase().includes(searchText)
+  })
 
   const dismissKeyboard = () => {
-    Keyboard.dismiss();
-  };
+    Keyboard.dismiss()
+  }
 
   return (
     <ThemedView
@@ -63,14 +63,14 @@ export default function Speakers() {
         ListEmptyComponent={
           <ThemedView style={styles.noResultsContainer}>
             <ThemedText>
-              No results found for{" "}
+              No results found for{' '}
               <ThemedText fontWeight="bold">{searchText}</ThemedText>
             </ThemedText>
           </ThemedView>
         }
       />
     </ThemedView>
-  );
+  )
 }
 
 export const styles = StyleSheet.create({
@@ -83,4 +83,4 @@ export const styles = StyleSheet.create({
   noResultsContainer: {
     paddingHorizontal: theme.space24,
   },
-});
+})

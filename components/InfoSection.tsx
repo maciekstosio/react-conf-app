@@ -1,15 +1,15 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View } from 'react-native'
 
-import { ThemedText, ThemedView } from "./Themed";
+import { ThemedText, ThemedView } from './Themed'
 
-import { theme } from "@/theme";
+import { theme } from '@/theme'
 
 export function InfoSection({
   title,
   children,
 }: {
-  title: string;
-  children: React.ReactElement | React.ReactElement[];
+  title: string
+  children: React.ReactElement | React.ReactElement[]
 }) {
   return (
     <View style={styles.infoContainer}>
@@ -24,7 +24,7 @@ export function InfoSection({
         {children}
       </ThemedView>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -40,4 +40,4 @@ const styles = StyleSheet.create({
   infoContainer: {
     marginBottom: theme.space16,
   },
-});
+})

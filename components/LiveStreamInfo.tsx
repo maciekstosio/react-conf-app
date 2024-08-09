@@ -1,16 +1,16 @@
-import { Button } from "./Button";
-import { InfoSection } from "./InfoSection";
-import { ThemedText } from "./Themed";
-import openWebBrowserAsync from "@/utils/openWebBrowserAsync";
+import { Button } from './Button'
+import { InfoSection } from './InfoSection'
+import { ThemedText } from './Themed'
+import openWebBrowserAsync from '@/utils/openWebBrowserAsync'
 
-import { theme } from "@/theme";
+import { theme } from '@/theme'
 
 export function LiveStreamInfo() {
   const handlePress = () => {
     openWebBrowserAsync(
-      "https://ti.to/reactconf/2024/with/free-livestream-access",
-    );
-  };
+      'https://ti.to/reactconf/2024/with/free-livestream-access'
+    )
+  }
   return (
     <InfoSection title="Live Stream">
       <ThemedText
@@ -26,5 +26,5 @@ export function LiveStreamInfo() {
       </ThemedText>
       <Button onPress={handlePress} title="Sign up" />
     </InfoSection>
-  );
+  )
 }

@@ -1,61 +1,61 @@
-import BootSplash, { Manifest } from "react-native-bootsplash";
-import MaskedView from "@react-native-masked-view/masked-view";
+import BootSplash, { Manifest } from 'react-native-bootsplash'
+import MaskedView from '@react-native-masked-view/masked-view'
 import Animated, {
   Easing,
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-} from "react-native-reanimated";
-import { StyleSheet, View } from "react-native";
-import { ReactNode, useState } from "react";
+} from 'react-native-reanimated'
+import { StyleSheet, View } from 'react-native'
+import { ReactNode, useState } from 'react'
 
-const MAX_SCALE = 10;
+const MAX_SCALE = 10
 
-const manifest: Manifest = require("../assets/bootsplash/manifest.json");
+const manifest: Manifest = require('../assets/bootsplash/manifest.json')
 
 const styles = StyleSheet.create({
   mask: {
-    backgroundColor: "black",
+    backgroundColor: 'black',
     borderRadius: manifest.logo.width,
     width: manifest.logo.width,
     height: manifest.logo.height,
   },
   transparent: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
   },
-});
+})
 
 type Props = {
-  animationEnded: boolean;
-  children: ReactNode;
-  onAnimationEnd: () => void;
-};
+  animationEnded: boolean
+  children: ReactNode
+  onAnimationEnd: () => void
+}
 
 export const AnimatedBootSplash = ({
   animationEnded,
   children,
   onAnimationEnd,
 }: Props) => {
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(false)
 
-  const opacity = useSharedValue(1);
-  const scale = useSharedValue(animationEnded ? MAX_SCALE : 1);
+  const opacity = useSharedValue(1)
+  const scale = useSharedValue(animationEnded ? MAX_SCALE : 1)
 
   const opacityStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
-  }));
+  }))
 
   const scaleStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
-  }));
+  }))
 
   const { container, logo, brand } = BootSplash.useHideAnimation({
     manifest,
     ready,
 
-    logo: require("../assets/bootsplash/logo.png"),
-    brand: require("../assets/bootsplash/brand.png"),
+    logo: require('../assets/bootsplash/logo.png'),
+    brand: require('../assets/bootsplash/brand.png'),
 
     statusBarTranslucent: true,
     navigationBarTranslucent: false,
@@ -64,7 +64,7 @@ export const AnimatedBootSplash = ({
       opacity.value = withTiming(0, {
         duration: 250,
         easing: Easing.out(Easing.ease),
-      });
+      })
 
       scale.value = withTiming(
         MAX_SCALE,
@@ -73,11 +73,11 @@ export const AnimatedBootSplash = ({
           easing: Easing.back(0.75),
         },
         () => {
-          runOnJS(onAnimationEnd)();
-        },
-      );
+          runOnJS(onAnimationEnd)()
+        }
+      )
     },
-  });
+  })
 
   return (
     <>
@@ -92,7 +92,7 @@ export const AnimatedBootSplash = ({
             <Animated.View
               style={[styles.mask, scaleStyle]}
               onLayout={() => {
-                setReady(true);
+                setReady(true)
               }}
             />
           </View>
@@ -113,5 +113,5 @@ export const AnimatedBootSplash = ({
         </View>
       )}
     </>
-  );
-};
+  )
+}

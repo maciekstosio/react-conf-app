@@ -1,27 +1,27 @@
-import { Image, ImageSource } from "expo-image";
-import { StyleSheet, View } from "react-native";
-import openWebBrowserAsync from "@/utils/openWebBrowserAsync";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Image, ImageSource } from 'expo-image'
+import { StyleSheet, View } from 'react-native'
+import openWebBrowserAsync from '@/utils/openWebBrowserAsync'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import { InfoSection } from "./InfoSection";
-import { ThemedText, ThemedView } from "./Themed";
+import { InfoSection } from './InfoSection'
+import { ThemedText, ThemedView } from './Themed'
 
-import { theme } from "@/theme";
+import { theme } from '@/theme'
 
 const organizers = {
   meta: {
-    image: require("../assets/images/meta-logo.svg"),
+    image: require('../assets/images/meta-logo.svg'),
     description:
-      "Giving people the power to build community and bring the world closer together.",
-    url: "https://www.meta.com/",
+      'Giving people the power to build community and bring the world closer together.',
+    url: 'https://www.meta.com/',
   },
   callstack: {
-    image: require("../assets/images/callstack-logo.svg"),
+    image: require('../assets/images/callstack-logo.svg'),
     description:
-      "Callstack unlocks a universe of possibilities for your business with the React tech stack.",
-    url: "https://callstack.com/",
+      'Callstack unlocks a universe of possibilities for your business with the React tech stack.',
+    url: 'https://callstack.com/',
   },
-};
+}
 
 export function OrganizersInfo() {
   return (
@@ -31,13 +31,13 @@ export function OrganizersInfo() {
         <Organizer organizer={organizers.callstack} />
       </View>
     </InfoSection>
-  );
+  )
 }
 
 const Organizer = ({
   organizer,
 }: {
-  organizer: { image: ImageSource; description: string; url: string };
+  organizer: { image: ImageSource; description: string; url: string }
 }) => {
   return (
     <>
@@ -61,26 +61,26 @@ const Organizer = ({
         {organizer.description}
       </ThemedText>
     </>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   content: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   image: {
     height: 40,
-    width: "100%",
+    width: '100%',
   },
   imageContainer: {
     padding: theme.space16,
     borderRadius: theme.borderRadius10,
-    width: "50%",
+    width: '50%',
     marginBottom: theme.space16,
     marginTop: theme.space16,
   },
   organizerText: {
     marginBottom: theme.space24,
-    textAlign: "center",
+    textAlign: 'center',
   },
-});
+})

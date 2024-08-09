@@ -1,37 +1,37 @@
-import FontAwesome6 from "@expo/vector-icons/build/FontAwesome6";
-import { Image } from "expo-image";
-import { StyleSheet, View, useWindowDimensions } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import * as Linking from "expo-linking";
-import { InfoSection } from "./InfoSection";
-import { ThemedText, useThemeColor } from "./Themed";
+import FontAwesome6 from '@expo/vector-icons/build/FontAwesome6'
+import { Image } from 'expo-image'
+import { StyleSheet, View, useWindowDimensions } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import * as Linking from 'expo-linking'
+import { InfoSection } from './InfoSection'
+import { ThemedText, useThemeColor } from './Themed'
 
-import { theme } from "@/theme";
+import { theme } from '@/theme'
 
-const venueAddress = "101 Montelago Blvd, Henderson, NV 89011, United States";
-const venueName = "The Westin Lake Las Vegas Resort & Spa";
+const venueAddress = '101 Montelago Blvd, Henderson, NV 89011, United States'
+const venueName = 'The Westin Lake Las Vegas Resort & Spa'
 
 export function VenueInfo() {
-  const { width } = useWindowDimensions();
+  const { width } = useWindowDimensions()
 
-  const hotelImageSize = width / 3;
+  const hotelImageSize = width / 3
 
   const onOpenVenue = () => {
     Linking.openURL(
-      `https://www.google.com/maps?q=${venueName}, ${venueAddress}`,
-    );
-  };
+      `https://www.google.com/maps?q=${venueName}, ${venueAddress}`
+    )
+  }
 
   const iconColor = useThemeColor({
     light: theme.colorBlack,
     dark: theme.colorWhite,
-  });
+  })
 
   return (
     <InfoSection title="Venue">
       <View style={styles.venueContainer}>
         <Image
-          source={require("../assets/images/hotel.png")}
+          source={require('../assets/images/hotel.png')}
           style={{
             width: hotelImageSize,
             height: hotelImageSize,
@@ -53,27 +53,27 @@ export function VenueInfo() {
         <ThemedText style={styles.address}>{venueAddress}</ThemedText>
       </TouchableOpacity>
     </InfoSection>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   venueContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginBottom: theme.space24,
   },
   hotelName: {
     flex: 1,
     paddingLeft: theme.space12,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   venueAddress: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginHorizontal: theme.space24,
-    alignItems: "center",
+    alignItems: 'center',
   },
   address: {
     marginLeft: theme.space24,
     flex: 1,
-    textDecorationLine: "underline",
+    textDecorationLine: 'underline',
   },
-});
+})

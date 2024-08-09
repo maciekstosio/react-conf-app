@@ -1,21 +1,21 @@
-import { Platform } from "react-native";
+import { Platform } from 'react-native'
 
 export const theme = {
-  colorWhite: "#FFFFFF",
-  colorBlack: "#051726",
-  colorDarkBlue: "#051726",
-  colorDarkestBlue: "#091725",
-  colorLightGreen: "#9BDFB1",
-  colorDarkGreen: "#1AC9A2",
-  colorGrey: "#adb5bd",
-  colorReactLightBlue: "#58C4DC",
-  colorReactDarkBlue: "#087EA4",
-  colorThemeLightGrey: "#FCFBFE",
-  colorThemeGrey: "#F5F4F3",
+  colorWhite: '#FFFFFF',
+  colorBlack: '#051726',
+  colorDarkBlue: '#051726',
+  colorDarkestBlue: '#091725',
+  colorLightGreen: '#9BDFB1',
+  colorDarkGreen: '#1AC9A2',
+  colorGrey: '#adb5bd',
+  colorReactLightBlue: '#58C4DC',
+  colorReactDarkBlue: '#087EA4',
+  colorThemeLightGrey: '#FCFBFE',
+  colorThemeGrey: '#F5F4F3',
 
-  darkActiveContent: "rgba(255,255,255, 0.3)",
+  darkActiveContent: 'rgba(255,255,255, 0.3)',
 
-  lightActiveContent: "rgba(0,0,0, 0.1)",
+  lightActiveContent: 'rgba(0,0,0, 0.1)',
 
   space4: 4,
   space8: 8,
@@ -28,12 +28,12 @@ export const theme = {
   fontSize24: 24,
   fontSize32: 32,
 
-  fontFamilyLight: "FreightSansProLight-Regular",
-  fontFamilyLightItalic: "FreightSansProLight-Italic",
-  fontFamily: "FreightSansProBook-Regular",
-  fontFamilyItalic: "FreightSansProBook-Italic",
-  fontFamilyBold: "FreightSansProBold-Regular",
-  fontFamilyBoldItalic: "FreightSansProBold-Italic",
+  fontFamilyLight: 'FreightSansProLight-Regular',
+  fontFamilyLightItalic: 'FreightSansProLight-Italic',
+  fontFamily: 'FreightSansProBook-Regular',
+  fontFamilyItalic: 'FreightSansProBook-Italic',
+  fontFamilyBold: 'FreightSansProBold-Regular',
+  fontFamilyBoldItalic: 'FreightSansProBold-Italic',
 
   borderRadius6: 6,
   borderRadius10: 10,
@@ -42,7 +42,7 @@ export const theme = {
   dropShadow: {
     ...Platform.select({
       ios: {
-        shadowColor: "#adb5bd",
+        shadowColor: '#adb5bd',
         shadowOffset: {
           width: 0,
           height: 0,
@@ -53,4 +53,4 @@ export const theme = {
       default: {},
     }),
   },
-};
+}

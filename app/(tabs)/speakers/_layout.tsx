@@ -1,17 +1,17 @@
-import { ThemedText, useThemeColor } from "@/components/Themed";
-import { theme } from "@/theme";
-import { Stack, useRouter } from "expo-router";
+import { ThemedText, useThemeColor } from '@/components/Themed'
+import { theme } from '@/theme'
+import { Stack, useRouter } from 'expo-router'
 
 export default function Layout() {
-  const router = useRouter();
+  const router = useRouter()
   const tabBarBackgroundColor = useThemeColor({
     light: theme.colorWhite,
     dark: theme.colorDarkestBlue,
-  });
+  })
   const tabBarTintColor = useThemeColor({
     light: theme.colorReactDarkBlue,
     dark: theme.colorWhite,
-  });
+  })
 
   return (
     <Stack>
@@ -35,11 +35,11 @@ export default function Layout() {
             onChangeText: (event) => {
               router.setParams({
                 q: event.nativeEvent.text,
-              });
+              })
             },
           },
         }}
       />
     </Stack>
-  );
+  )
 }
